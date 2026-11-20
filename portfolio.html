@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What we do | Brand Rituals Marketing</title>
+<meta name="description" content="Website design, UGC video, social media management, visual identity and digital marketing from Brand Rituals Marketing.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. TOKENS  (same colours as the main site)
+   ============================================================ */
+:root{
+  --bg:#000;
+  --ink:#F3EEE9;
+  --soft:#A89F97;
+  --signal:#FF5A36;
+  --sand:#CDB9A3;
+  --font-display:'Anton','Bebas Neue',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Hanken Grotesk',system-ui,sans-serif;
+  --font-mono:'Space Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(16px,3vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;-webkit-text-size-adjust:100%}
+body{background:#000;color:var(--ink);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+
+/* ============================================================
+   2. SCROLL TRACK  - the page is tall; the stage stays fixed
+      while you scroll, like a video you scrub.
+      Make it longer (e.g. 1200vh) for a slower film.
+   ============================================================ */
+.track{position:relative;height:900vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#000}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#stars{opacity:.9}
+#gl{z-index:3;pointer-events:none}
+.fallback{position:absolute;left:50%;bottom:-4%;width:min(70vh,90vw);translate:-50% 0;z-index:3;display:none}
+.nogl .fallback{display:block}
+.nogl #gl{display:none}
+
+/* giant title behind the robot */
+.title{position:absolute;left:0;right:0;top:calc(var(--pad) + 44px);z-index:2;text-align:center;white-space:nowrap;
+  font-family:var(--font-display);font-weight:400;line-height:.86;letter-spacing:.005em;text-transform:uppercase;
+  background:linear-gradient(180deg,#fff 18%,#777 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  transform-origin:50% 0;will-change:transform,opacity}
+
+/* soft black fades so text and edges stay readable */
+.vig{position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.65),transparent 18%,transparent 62%,rgba(0,0,0,.92) 100%)}
+
+/* ============================================================
+   3. HUD (small details around the edges)
+   ============================================================ */
+.hud{position:absolute;z-index:8;left:0;right:0;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#cfcfcf}
+.hud.top{top:0;height:calc(var(--pad) + 40px);padding-top:var(--pad);align-items:flex-start}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:15px;letter-spacing:-.01em;text-transform:none;color:#fff;font-weight:500}
+.logo i{width:11px;height:11px;border-radius:50%;background:var(--signal);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.5);opacity:.6}}
+.nav{display:flex;gap:26px}
+.nav a{opacity:.65;transition:opacity .2s}
+.nav a:hover,.nav a.on{opacity:1}
+.clock{display:flex;gap:16px;align-items:center;text-align:right}
+.back{padding:7px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff;transition:background .2s,color .2s}
+.back:hover{background:#fff;color:#000}
+.hud.bot{bottom:0;padding-bottom:var(--pad);align-items:flex-end}
+.now{display:flex;flex-direction:column;gap:6px;transition:opacity .3s}
+.now b{font-size:12px;color:#fff;font-weight:400}
+.now span{font-family:var(--font-sans);font-size:clamp(20px,2.2vw,30px);text-transform:none;letter-spacing:-.01em;color:#fff;font-weight:400}
+.btns{display:flex;gap:12px}
+.rb{width:54px;height:54px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;
+  background:rgba(255,255,255,.04);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:9px;letter-spacing:.1em;transition:background .25s,color .25s,transform .25s}
+.rb:hover{background:var(--signal);border-color:var(--signal);transform:translateY(-3px)}
+.rail{position:absolute;z-index:8;right:calc(var(--pad) * .6);top:50%;translate:0 -50%;display:flex;flex-direction:column;gap:14px;align-items:center}
+.rail button{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.28);transition:background .3s,transform .3s}
+.rail button.on{background:var(--signal);transform:scale(1.5)}
+.hint{position:absolute;z-index:8;left:50%;bottom:calc(var(--pad) + 4px);translate:-50% 0;display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#bbb}
+.hint i{display:block;width:1px;height:38px;background:linear-gradient(#fff,transparent);animation:drop 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes drop{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* ============================================================
+   4. SCENES (the words that appear as you scroll)
+      JS sets --v (0 hidden, 1 fully visible) on each one.
+   ============================================================ */
+.scene{position:absolute;z-index:6;pointer-events:none;opacity:var(--v,0);visibility:hidden}
+.scene.vis{visibility:visible}
+.scene a,.scene button{pointer-events:auto}
+.sv{display:flex;flex-direction:column;gap:clamp(14px,2vh,24px);
+  top:50%;translate:0 -50%;max-width:min(560px,46vw)}
+.sv.l{left:var(--pad);padding-left:clamp(0px,2vw,30px)}
+.sv.r{right:calc(var(--pad) + 18px);align-items:flex-start}
+.sv > *{opacity:clamp(0,calc(var(--v,0)*2.2 - var(--i,0)*.28),1);
+  transform:translateY(calc((1 - clamp(0,calc(var(--v,0)*2.2 - var(--i,0)*.28),1)) * 34px));
+  filter:blur(calc((1 - clamp(0,calc(var(--v,0)*2.2 - var(--i,0)*.28),1)) * 8px))}
+.idx{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;color:var(--signal)}
+.idx em{font-style:normal;color:#8a8a8a}
+.sv h2{font-family:var(--font-display);font-weight:400;font-size:clamp(46px,6.4vw,104px);line-height:.92;text-transform:uppercase;letter-spacing:.005em;
+  background:linear-gradient(180deg,#fff 30%,#8c8c8c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sv p{font-size:clamp(15px,1.25vw,18px);line-height:1.55;color:#cfc8c1;max-width:430px}
+.sv h2.long{font-size:clamp(38px,5vw,84px)}
+.stat{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.stat strong{font-family:var(--font-display);font-weight:400;font-size:clamp(44px,5vw,78px);line-height:1;color:var(--signal)}
+.stat span{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a9a9a9;max-width:200px;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:8px;max-width:440px}
+.chips span{padding:8px 14px;border:1px solid rgba(255,255,255,.22);border-radius:999px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#ddd;background:rgba(255,255,255,.04)}
+/* giant outlined word that slides behind the robot */
+.ghost{position:absolute;z-index:1;left:0;top:50%;white-space:nowrap;font-family:var(--font-display);font-size:clamp(130px,26vw,420px);line-height:1;text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.16);opacity:calc(var(--v,0)*.9);will-change:transform;pointer-events:none}
+
+.hero-l,.hero-r{position:absolute;z-index:6;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.7;color:#d6d6d6;
+  bottom:calc(var(--pad) + 6px);opacity:var(--v,0)}
+.hero-l{left:var(--pad)}
+.hero-l b{display:block;font-family:var(--font-sans);font-weight:400;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;text-transform:none;color:#fff;margin-bottom:8px}
+.hero-r{right:calc(var(--pad) + 40px);text-align:right;bottom:auto;top:44%}
+.final{inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;gap:22px;padding:0 var(--pad) clamp(90px,14vh,150px)}
+.final h2{font-family:var(--font-display);font-weight:400;font-size:clamp(48px,9vw,150px);line-height:.9;text-transform:uppercase;color:#fff;text-shadow:0 10px 60px #000}
+.final h2 em{font-style:normal;color:var(--signal)}
+.final p{max-width:460px;color:#d6cfc8;font-size:clamp(15px,1.3vw,18px);line-height:1.55}
+.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.cta a{padding:16px 30px;border-radius:999px;font-size:15px;font-weight:500;transition:transform .25s,box-shadow .25s,background .25s}
+.cta .p{background:var(--signal);color:#fff;box-shadow:0 16px 36px -14px rgba(255,90,54,.85)}
+.cta .s{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.26)}
+.cta a:hover{transform:translateY(-3px)}
+.final > *{opacity:clamp(0,calc(var(--v,0)*2.2 - var(--i,0)*.3),1);
+  transform:translateY(calc((1 - clamp(0,calc(var(--v,0)*2.2 - var(--i,0)*.3),1)) * 34px))}
+
+/* ============================================================
+   5. PHONES
+   ============================================================ */
+@media (max-width:820px){
+  .nav,.clock .t{display:none}
+  .sv{top:auto;bottom:calc(var(--pad) + 74px);translate:none;left:var(--pad)!important;right:var(--pad)!important;max-width:none;padding-left:0}
+  .sv h2{font-size:clamp(44px,15vw,84px)}
+  .sv p{max-width:none}
+  .vig{background:linear-gradient(180deg,rgba(0,0,0,.65),transparent 16%,transparent 38%,rgba(0,0,0,.88) 74%,#000 100%)}
+  .hero-r,.hint{display:none}
+  .rail{display:none}
+  .rb{width:46px;height:46px}
+  .hud.bot .now{max-width:55%}
+}
+</style>
+</head>
+<body>
+
+<main class="track" id="track">
+ <div class="stage" id="stage">
+  <canvas id="stars"></canvas>
+
+  <h1 class="title" id="title">Brand Rituals</h1>
+  <div class="ghost" id="ghost" aria-hidden="true"></div>
+
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <!-- shown only if the visitor's device cannot run WebGL -->
+  <svg class="fallback" viewBox="0 0 400 420" aria-hidden="true">
+    <defs><linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a2a2e"/><stop offset="1" stop-color="#050505"/></linearGradient></defs>
+    <path d="M30 420c0-90 60-130 170-130s170 40 170 130z" fill="url(#fg)"/>
+    <rect x="115" y="60" width="170" height="150" rx="62" fill="url(#fg)"/>
+    <rect x="140" y="110" width="120" height="44" rx="22" fill="#0c0c0e"/>
+    <circle cx="172" cy="132" r="9" fill="#FF5A36"/><circle cx="228" cy="132" r="9" fill="#FF5A36"/>
+    <rect x="198" y="30" width="4" height="34" fill="#444"/><circle cx="200" cy="26" r="9" fill="#FF5A36"/>
+  </svg>
+
+  <div class="vig"></div>
+
+  <!-- ===== top bar ===== -->
+  <header class="hud top">
+    <a class="logo" href="index.html" aria-label="Back to Brand Rituals Marketing home"><i></i>Brand Rituals Marketing</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#" data-go="0" class="on">Home</a>
+      <a href="#" data-go="1">Websites</a>
+      <a href="#" data-go="2">UGC</a>
+      <a href="#" data-go="3">Social</a>
+      <a href="#" data-go="4">Identity</a>
+      <a href="#" data-go="5">Ads</a>
+      <a href="#" data-go="6">Contact</a>
+    </nav>
+    <div class="clock"><span class="t" id="clock">Studio time (IST)</span><a class="back" href="index.html">&larr; Back to site</a></div>
+  </header>
+
+  <!-- ===== scenes ===== -->
+  <div class="hero-l scene vis" id="heroL" style="--v:1"><b>Creative &amp; digital<br>marketing agency</b>Branding / Websites<br>Video / Social / Ads</div>
+  <div class="hero-r scene vis" id="heroR" style="--v:1">Five services.<br>One team.<br>Built to grow brands.</div>
+
+  <section class="scene sv l" data-i="1" aria-label="Website design">
+    <div class="idx" style="--i:0">01 <em>/ 05</em></div>
+    <h2 style="--i:1">Website<br>design</h2>
+    <p style="--i:2">Two years of designing and building extraordinary websites for businesses, made to look sharp, load fast and turn visitors into customers.</p>
+    <div class="stat" style="--i:3"><strong data-count="2" data-suffix=" yrs">0</strong><span>Experience building websites for businesses</span></div>
+  </section>
+
+  <section class="scene sv r" data-i="2" aria-label="UGC video">
+    <div class="idx" style="--i:0">02 <em>/ 05</em></div>
+    <h2 style="--i:1">UGC<br>video</h2>
+    <p style="--i:2">Scroll-stopping videos for brands, made both with AI and the traditional way, and built to actually sell.</p>
+    <div class="stat" style="--i:3"><strong data-count="120" data-suffix="+">0</strong><span>Videos created for brands, AI and manual</span></div>
+  </section>
+
+  <section class="scene sv l" data-i="3" aria-label="Social media management">
+    <div class="idx" style="--i:0">03 <em>/ 05</em></div>
+    <h2 class="long" style="--i:1">Social media<br>management</h2>
+    <p style="--i:2">Two years of managing the accounts of international celebrity clients, growing reach month after month.</p>
+    <div class="stat" style="--i:3"><strong data-count="300" data-suffix="M+">0</strong><span>Views achieved in a single month</span></div>
+  </section>
+
+  <section class="scene sv r" data-i="4" aria-label="Visual identity">
+    <div class="idx" style="--i:0">04 <em>/ 05</em></div>
+    <h2 style="--i:1">Visual<br>identity</h2>
+    <p style="--i:2">A team of designers for complete brand redesigns and everything around them: logo, colour, type and the full identity system.</p>
+    <div class="stat" style="--i:3"><strong data-count="2" data-suffix=" yrs">0</strong><span>Experience designing brand identities</span></div>
+  </section>
+
+  <section class="scene sv l" data-i="5" aria-label="Digital marketing">
+    <div class="idx" style="--i:0">05 <em>/ 05</em></div>
+    <h2 style="--i:1">Digital<br>marketing</h2>
+    <p style="--i:2">We turned just $500 of a client's ad budget into $3,000 in a single month.</p>
+    <div class="stat" style="--i:3"><strong id="roi" data-roi>$500 &rarr; $3,000</strong><span>In one month, from paid ads</span></div>
+    <div class="chips" style="--i:4"><span>Meta Ads</span><span>ChatGPT Ads</span><span>Google Ads</span><span>Reddit Ads</span><span>Snapchat Ads</span><span>LinkedIn Ads</span></div>
+  </section>
+
+  <section class="scene final" data-i="6" aria-label="Contact">
+    <h2 style="--i:0">Let's build<br><em>your brand.</em></h2>
+    <p style="--i:1">Tell us what you are building and we will come back with ideas and next steps.</p>
+    <div class="cta" style="--i:2"><a class="p" href="index.html#contact">Book a call</a><a class="s" href="index.html">Back to site</a></div>
+  </section>
+
+  <!-- ===== bottom bar ===== -->
+  <div class="hud bot">
+    <div class="now"><b id="nowIdx">00 / 06</b><span id="nowName">Welcome</span></div>
+    <div class="btns">
+      <button class="rb" type="button" data-go="0" aria-label="Back to top">&uarr;</button>
+      <button class="rb" type="button" data-go="6" aria-label="Contact">CONTACT</button>
+    </div>
+  </div>
+  <div class="hint" id="hint"><span>Scroll</span><i></i></div>
+  <div class="rail" id="rail" aria-hidden="true"></div>
+ </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $  = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var clamp = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
+  var sstep = function (x) { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+  var lerp  = function (a, b, t) { return a + (b - a) * t; };
+
+  var track = $('#track'), stage = $('#stage');
+
+  /* ============================================================
+     SCENE TIMELINE - edit here.
+       at   : where on the scroll (0 = top, 1 = bottom) the scene is centred
+       name : label in the bottom-left corner
+     ============================================================ */
+  var SCENES = [
+    { at: 0.00, name: 'Welcome' },
+    { at: 0.19, name: 'Website design' },
+    { at: 0.34, name: 'UGC video' },
+    { at: 0.49, name: 'Social media management' },
+    { at: 0.64, name: 'Visual identity' },
+    { at: 0.79, name: 'Digital marketing' },
+    { at: 0.95, name: "Let's talk" }
+  ];
+  var HALF = 0.062;     // how long each service stays on screen (fraction of the page)
+
+  /* ROBOT KEYFRAMES - how the robot moves as you scroll.
+     yaw = turn the body, hy = turn the head, hp = nod the head,
+     z = camera distance, y = camera height, ly = where the camera looks,
+     sx = robot position left/right (+ right, - left)  */
+  var K = [
+    { p: 0.00, yaw: 0.00,  hy:  0.00, hp: 0.00,  z: 7.2, y: 1.1, ly: 0.85, sx:  0.0 },
+    { p: 0.06, yaw: 0.10,  hy:  0.00, hp: 0.00,  z: 6.9, y: 1.0, ly: 0.80, sx:  0.0 },
+    { p: 0.19, yaw: -0.85, hy:  0.35, hp: 0.05,  z: 6.3, y: 0.9, ly: 0.55, sx:  1.55 },
+    { p: 0.34, yaw: -1.9,  hy: -0.30, hp: -0.05, z: 6.3, y: 0.9, ly: 0.55, sx: -1.55 },
+    { p: 0.49, yaw: -3.2,  hy:  0.00, hp: 0.00,  z: 6.6, y: 1.0, ly: 0.50, sx:  1.55 },
+    { p: 0.64, yaw: -4.5,  hy:  0.25, hp: 0.08,  z: 6.3, y: 0.8, ly: 0.60, sx: -1.55 },
+    { p: 0.79, yaw: -5.6,  hy: -0.25, hp: 0.00,  z: 6.3, y: 0.9, ly: 0.55, sx:  1.55 },
+    { p: 0.93, yaw: -6.283, hy: 0.00, hp: 0.00,  z: 7.2, y: 0.9, ly: 0.20, sx: 0.0 },
+    { p: 1.00, yaw: -6.283, hy: 0.00, hp: 0.00,  z: 7.0, y: 0.9, ly: 0.15, sx: 0.0 }
+  ];
+  function keyAt(p) {
+    var i = 0;
+    while (i < K.length - 2 && p > K[i + 1].p) i++;
+    var a = K[i], b = K[i + 1], t = sstep((p - a.p) / (b.p - a.p));
+    var o = {};
+    ['yaw', 'hy', 'hp', 'z', 'y', 'ly', 'sx'].forEach(function (k) { o[k] = lerp(a[k], b[k], t); });
+    return o;
+  }
+
+  /* ============================================================
+     SIZE THE GIANT TITLE to the screen width
+     ============================================================ */
+  var title = $('#title');
+  function fitTitle() {
+    title.style.fontSize = '100px';
+    var w = title.scrollWidth || 1;
+    var target = stage.clientWidth * 0.94;
+    title.style.fontSize = (100 * target / w) + 'px';
+  }
+
+  /* ghost words (big outlined words sliding behind the robot) */
+  var ghost = $('#ghost'), GH = ['', 'Websites', 'UGC', 'Social', 'Identity', 'Ads'];
+
+  /* side dots */
+  var rail = $('#rail');
+  SCENES.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-label', 'Go to ' + s.name);
+    b.addEventListener('click', function () { goTo(i); });
+    rail.appendChild(b);
+  });
+  var dots = $$('button', rail);
+
+  function goTo(i) {
+    var max = track.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: SCENES[i].at * max, behavior: 'smooth' });
+  }
+  $$('[data-go]').forEach(function (el) {
+    el.addEventListener('click', function (e) { e.preventDefault(); goTo(+el.getAttribute('data-go')); });
+  });
+
+  /* clock (studio time) */
+  var clockEl = $('#clock');
+  function tick() {
+    try {
+      clockEl.textContent = 'Studio time (IST) ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false });
+    } catch (e) { clockEl.textContent = ''; }
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ============================================================
+     STARS (tiny drifting specks)
+     ============================================================ */
+  var sc = $('#stars'), sx = sc.getContext('2d'), stars = [], W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+  function sizeStars() {
+    W = stage.clientWidth; H = stage.clientHeight;
+    sc.width = W * DPR; sc.height = H * DPR; sx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    stars = [];
+    for (var i = 0; i < Math.round(W * H / 9000); i++) stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + .2, a: Math.random() * .6 + .15, s: Math.random() * 1.5 + .3, d: Math.random() * 6 });
+  }
+  function drawStars(t, p) {
+    sx.clearRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i], y = (s.y - p * 900 * s.s * .35) % H; if (y < 0) y += H;
+      sx.globalAlpha = s.a * (.6 + .4 * Math.sin(t * .001 * s.s + s.d));
+      sx.fillStyle = '#fff'; sx.beginPath(); sx.arc(s.x, y, s.r, 0, 6.283); sx.fill();
+    }
+  }
+
+  /* ============================================================
+     THE ROBOT - drawn live with WebGL (no image or 3D file needed)
+     ============================================================ */
+  var gl = null, prog = null, U = {}, glc = $('#gl'), scale = 0.75, okGL = false;
+  var VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+  var FS = [
+  'precision highp float;',
+  'uniform vec2 uRes;uniform float uT,uYaw,uHY,uHP,uZ,uY,uLY,uSX;',
+  'mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}',
+  'float sdRB(vec3 p,vec3 b,float r){vec3 q=abs(p)-b;return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.)-r;}',
+  'float sdCap(vec3 p,vec3 a,vec3 b,float r){vec3 pa=p-a,ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.);return length(pa-ba*h)-r;}',
+  'float sdTor(vec3 p,vec2 t){vec2 q=vec2(length(p.xz)-t.x,p.y);return length(q)-t.y;}',
+  'float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}',
+  'vec2 U2(vec2 a,vec2 b){return a.x<b.x?a:b;}',
+  'vec2 map(vec3 p){',
+  '  p.x-=uSX; vec3 q=p; q.xz=rot(uYaw)*q.xz;',
+  '  float tor=sdRB(q-vec3(0.,-0.55,0.),vec3(0.55,0.34,0.26),0.27);',
+  '  float sh=min(length(q-vec3(.92,-.28,0.))-.36,length(q-vec3(-.92,-.28,0.))-.36);',
+  '  float body=smin(tor,sh,.28);',
+  '  body=smin(body,sdCap(q,vec3(0.,.05,0.),vec3(0.,.42,0.),.17),.14);',
+  '  vec3 h=q-vec3(0.,1.02,0.); h.xz=rot(uHY)*h.xz; h.yz=rot(uHP)*h.yz;',
+  '  float head=sdRB(h,vec3(.46,.33,.40),.26);',
+  '  float ear=sdRB(vec3(abs(h.x)-.80,h.y,h.z),vec3(.05,.17,.17),.07);',
+  '  head=min(head,ear);',
+  '  vec2 r=vec2(min(body,head),1.);',
+  '  float vis=sdRB(h-vec3(0.,.03,.62),vec3(.40,.12,.03),.085);',
+  '  r=U2(r,vec2(vis,2.));',
+  '  float eyes=min(length(vec3(abs(h.x)-.18,h.y-.03,h.z-.72))-.062,length(h-vec3(0.,.92,0.))-.075);',
+  '  r=U2(r,vec2(eyes,3.));',
+  '  r=U2(r,vec2(sdCap(h,vec3(0.,.55,0.),vec3(0.,.9,0.),.028),1.));',
+  '  vec3 hp=q-vec3(0.,1.08,-.5); hp.xz=rot(uT*.35)*hp.xz;',
+  '  r=U2(r,vec2(sdTor(vec3(hp.x,hp.z,hp.y),vec2(1.05,.022)),1.));',
+  '  float pl=sdRB(q-vec3(0.,-.45,.50),vec3(.2,.1,.05),.05);',
+  '  r=U2(r,vec2(pl,2.));',
+  '  r=U2(r,vec2(length(q-vec3(0.,-.45,.60))-.05,3.));',
+  '  return r;}',
+  'vec3 nrm(vec3 p){vec2 e=vec2(1.,-1.)*.0012;return normalize(e.xyy*map(p+e.xyy).x+e.yyx*map(p+e.yyx).x+e.yxy*map(p+e.yxy).x+e.xxx*map(p+e.xxx).x);}',
+  'vec3 env(vec3 d){',
+  '  float y=d.y*.5+.5; vec3 c=mix(vec3(.004),vec3(.10,.105,.12),smoothstep(.2,1.,y));',
+  '  c+=vec3(1.)*smoothstep(.90,.985,dot(d,normalize(vec3(-.55,.75,.45))))*2.4;',
+  '  c+=vec3(.55,.62,.85)*smoothstep(.80,.96,dot(d,normalize(vec3(.85,.15,-.35))))*1.1;',
+  '  c+=vec3(1.,.38,.2)*smoothstep(.86,.98,dot(d,normalize(vec3(.45,-.25,.8))))*.55;',
+  '  return c;}',
+  'void main(){',
+  '  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;',
+  '  float bob=sin(uT*.9)*.04;',
+  '  vec3 ro=vec3(0.,uY+bob*.5,uZ),ta=vec3(0.,uLY+bob,0.);',
+  '  vec3 f=normalize(ta-ro),rt=normalize(cross(f,vec3(0.,1.,0.))),up=cross(rt,f);',
+  '  vec3 rd=normalize(uv.x*rt+uv.y*up+1.7*f);',
+  '  vec3 c0=vec3(uSX,.3,0.)-ro; float b=dot(c0,rd); float disc=b*b-dot(c0,c0)+3.2*3.2;',
+  '  if(disc<0.){gl_FragColor=vec4(0.);return;}',
+  '  float t=max(b-sqrt(disc),0.),tf=b+sqrt(disc); float m=-1.;',
+  '  for(int i=0;i<90;i++){vec2 s=map(ro+rd*t);if(s.x<.0012*t){m=s.y;break;}t+=s.x*.9;if(t>tf)break;}',
+  '  if(m<0.){gl_FragColor=vec4(0.);return;}',
+  '  vec3 p=ro+rd*t,n=nrm(p),v=-rd;',
+  '  float ndv=clamp(dot(n,v),0.,1.),fr=pow(1.-ndv,4.);',
+  '  vec3 col;',
+  '  if(m>2.5){col=vec3(1.,.34,.16)*(1.5+.35*sin(uT*2.));}',
+  '  else{',
+  '    vec3 R=reflect(rd,n);',
+  '    float refl=(m>1.5?.55:.30)+fr*.9;',
+  '    col=env(R)*refl;',
+  '    vec3 L=normalize(vec3(-.55,.75,.5));',
+  '    float dif=max(dot(n,L),0.);',
+  '    col+=vec3(.05,.052,.06)*dif;',
+  '    col+=pow(max(dot(n,normalize(L+v)),0.),90.)*vec3(1.)*.9;',
+  '    col+=fr*vec3(.30,.33,.42)*.55;',
+  '    col+=pow(clamp(dot(n,normalize(vec3(.8,-.1,.4))),0.,1.),3.)*fr*vec3(1.,.36,.2)*.35;',
+  '  }',
+  '  col=pow(col,vec3(.95));',
+  '  gl_FragColor=vec4(col,1.);}'
+  ].join('\n');
+
+  function sh(type, src) {
+    var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { throw new Error(gl.getShaderInfoLog(s)); }
+    return s;
+  }
+  try {
+    gl = glc.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'high-performance' }) ||
+         glc.getContext('experimental-webgl');
+    if (!gl) throw new Error('no webgl');
+    prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error('link');
+    gl.useProgram(prog);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    ['uRes', 'uT', 'uYaw', 'uHY', 'uHP', 'uZ', 'uY', 'uLY', 'uSX'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+    okGL = true;
+  } catch (err) {
+    document.documentElement.classList.add('nogl');
+    if (window.console) console.warn('Robot fallback:', err.message);
+  }
+
+  function sizeGL() {
+    if (!okGL) return;
+    var w = Math.max(2, Math.round(stage.clientWidth * DPR * scale));
+    var h = Math.max(2, Math.round(stage.clientHeight * DPR * scale));
+    if (glc.width !== w || glc.height !== h) { glc.width = w; glc.height = h; gl.viewport(0, 0, w, h); }
+  }
+
+  /* ============================================================
+     SCENES: fade text in and out from the scroll position
+     ============================================================ */
+  var scenes = $$('.scene[data-i]'), nowIdx = $('#nowIdx'), nowName = $('#nowName'), heroL = $('#heroL'), heroR = $('#heroR'), hint = $('#hint');
+  var navLinks = $$('.nav a'), counted = {};
+  function vis(p, c, half, ramp) {
+    return sstep((p - (c - half)) / ramp) * sstep(((c + half) - p) / ramp);
+  }
+  function countUp(sec) {
+    var el = $('[data-count]', sec); if (!el) return;
+    var to = +el.getAttribute('data-count'), suf = el.getAttribute('data-suffix') || '', t0 = performance.now();
+    (function step(now) {
+      var k = clamp((now - t0) / 1400, 0, 1), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(to * e) + suf;
+      if (k < 1 && counted[sec.getAttribute('data-i')] === 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  var target = 0, cur = 0, lastScene = -1, lastT = 0, frames = 0, acc = 0;
+  function readScroll() {
+    var max = Math.max(1, track.offsetHeight - window.innerHeight);
+    target = clamp(window.scrollY / max, 0, 1);
+  }
+  window.addEventListener('scroll', readScroll, { passive: true });
+
+  function layout() {
+    fitTitle(); sizeStars(); sizeGL(); readScroll();
+  }
+  window.addEventListener('resize', function () { layout(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+    var dt = now - lastT; lastT = now;
+    cur += (target - cur) * Math.min(1, 0.09 * (dt / 16.7));
+    if (Math.abs(target - cur) < 0.00005) cur = target;
+    var p = cur;
+
+    /* title: scales up and fades as you start to scroll */
+    var th = sstep(p / 0.09);
+    title.style.opacity = 1 - th;
+    title.style.transform = 'translateY(' + (-th * 12) + 'vh) scale(' + (1 + th * 0.12) + ')';
+    var hv = 1 - sstep(p / 0.05);
+    heroL.style.setProperty('--v', hv); heroR.style.setProperty('--v', hv);
+    hint.style.opacity = hv;
+
+    /* scenes */
+    var active = 0, best = 9;
+    SCENES.forEach(function (s, i) { var d = Math.abs(p - s.at); if (d < best) { best = d; active = i; } });
+    scenes.forEach(function (sec) {
+      var i = +sec.getAttribute('data-i'), v;
+      if (i === 6) v = sstep((p - 0.885) / 0.05); else v = vis(p, SCENES[i].at, HALF, 0.035);
+      sec.style.setProperty('--v', v.toFixed(3));
+      var on = v > 0.01; sec.classList.toggle('vis', on);
+      if (v > 0.55 && counted[i] !== 1) { counted[i] = 1; countUp(sec); }
+      if (v < 0.05) counted[i] = 0;
+    });
+
+    /* ghost word */
+    var gi = active >= 1 && active <= 5 ? active : 0;
+    if (gi) {
+      if (ghost.textContent !== GH[gi]) ghost.textContent = GH[gi];
+      var c = SCENES[gi].at, gv = vis(p, c, HALF + 0.02, 0.05);
+      ghost.style.setProperty('--v', gv.toFixed(3));
+      ghost.style.transform = 'translate(' + (lerp(8, -45, clamp((p - (c - .09)) / .18, 0, 1))) + 'vw,-50%)';
+    } else ghost.style.setProperty('--v', 0);
+
+    /* labels */
+    if (active !== lastScene) {
+      lastScene = active;
+      nowIdx.textContent = ('0' + active).slice(-2) + ' / 06';
+      nowName.textContent = SCENES[active].name;
+      dots.forEach(function (d, i) { d.classList.toggle('on', i === active); });
+      navLinks.forEach(function (a, i) { a.classList.toggle('on', i === active); });
+      $('.now').style.opacity = active === 0 ? 0 : 1;
+    }
+
+    drawStars(now, p);
+
+    /* robot */
+    if (okGL) {
+      var k = keyAt(p), portrait = stage.clientWidth / stage.clientHeight < 0.95;
+      var sxv = portrait ? 0 : k.sx, zz = k.z + (portrait ? 4.4 : 0), ly = k.ly - (portrait ? 1.45 : 0);
+      gl.uniform2f(U.uRes, glc.width, glc.height);
+      gl.uniform1f(U.uT, now * 0.001);
+      gl.uniform1f(U.uYaw, k.yaw); gl.uniform1f(U.uHY, k.hy); gl.uniform1f(U.uHP, k.hp);
+      gl.uniform1f(U.uZ, zz); gl.uniform1f(U.uY, k.y); gl.uniform1f(U.uLY, ly); gl.uniform1f(U.uSX, sxv);
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+      /* keep it smooth: lower the picture detail if the phone struggles, raise it again if it is easy */
+      frames++; acc += dt;
+      if (frames >= 40) {
+        var avg = acc / frames; frames = 0; acc = 0;
+        if (avg > 26 && scale > 0.5) { scale *= 0.85; sizeGL(); }
+        else if (avg < 15 && scale < 0.85) { scale *= 1.08; sizeGL(); }
+      }
+    }
+  }
+
+  /* only draw while the tab is visible */
+  layout();
+  readScroll(); cur = target;
+  requestAnimationFrame(function (t) { lastT = t; frame(t); });
+})();
+</script>
+</body>
+</html>
