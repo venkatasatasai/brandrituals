@@ -195,6 +195,48 @@ h1,h2,h3,p{margin:0}
 .card .go{align-self:flex-end;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:background .25s,transform .25s}
 .card .go:hover{background:rgba(255,255,255,.14);transform:translateX(4px)}
 
+/* animated service scenes (driven by the tiny timeline script at the bottom) */
+.zviz{container-type:size}
+.zsv{position:absolute;inset:0;width:100%;height:100%;display:block;font-family:var(--font-sans)}
+.zsv text{font-family:var(--font-sans)}
+.zsv [data-t]{transition:opacity .5s ease,transform .65s cubic-bezier(.2,.9,.3,1.25),stroke-dashoffset 1s ease}
+.zsv .z{opacity:0;transform:translateY(10px) scale(.92);transform-box:fill-box;transform-origin:center}
+.zsv .zup{opacity:0;transform:translateY(22px);transform-box:fill-box;transform-origin:center}
+.zsv .zs{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:center}
+.zsv .zf{opacity:0}
+.zsv .z.on,.zsv .zup.on,.zsv .zs.on{opacity:1;transform:none}
+.zsv .zf.on{opacity:1}
+.zsv .zl{stroke-dasharray:1;stroke-dashoffset:1;opacity:1}
+.zsv .zl.on{stroke-dashoffset:0}
+.zsv .pgr{transform:scaleX(0);transform-box:fill-box;transform-origin:left;transition:transform 8s linear}
+.zsv .pgr.on{transform:scaleX(1)}
+.zsv .pgr:not(.on){transition:none}
+.zsv .zheart,.zsv .zfl{opacity:0;transform-box:fill-box;transform-origin:center}
+.zsv .zheart.on{animation:zhp 1s ease-out forwards}
+.zsv .zfl.on{animation:zfl 1.8s ease-out forwards}
+.zsv .zripple{opacity:0;transform-box:fill-box;transform-origin:center}
+.zsv .zripple.on{animation:zrip .9s ease-out forwards}
+.zsv .cur{transition:transform 1.5s cubic-bezier(.4,0,.2,1)!important}
+.zsv .zscroll{transition:transform 1.1s cubic-bezier(.5,0,.2,1)!important}
+.zsv .ph{transition:transform 10.5s linear!important}
+.zsv .zspin{animation:spin 14s linear infinite}
+.zsv .zpulse{animation:zpul 1.6s ease-in-out infinite}
+.zsv .zring{animation:zpul 2.4s ease-in-out infinite}
+.zsv .znod{animation:znod 2.8s ease-in-out infinite}
+.zsv .zrock{animation:zrock 2.4s ease-in-out infinite}
+.zsv .ztalk{animation:ztalk .45s ease-in-out infinite alternate}
+.zsv .zblink{animation:zbl 1s steps(2) infinite}
+.zsv .zfloat.on{animation:zflo 5s ease-in-out infinite}
+@keyframes zhp{0%{opacity:0;transform:scale(.2)}30%{opacity:1;transform:scale(1.15)}60%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.3)}}
+@keyframes zfl{0%{opacity:0;transform:translateY(0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translateY(-46px) scale(1.1)}}
+@keyframes zrip{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(4)}}
+@keyframes zpul{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.25)}}
+@keyframes znod{0%,100%{transform:rotate(-1.5deg) translateY(0)}50%{transform:rotate(1.5deg) translateY(3px)}}
+@keyframes zrock{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(6deg)}}
+@keyframes ztalk{from{transform:scaleY(.4)}to{transform:scaleY(1.4)}}
+@keyframes zbl{50%{opacity:0}}
+@keyframes zflo{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
 /* animated visuals inside the cards — delete a .viz and drop in an <img> to use your own picture */
 .viz{position:relative;flex:1 1 auto;min-height:0;border-radius:14px;overflow:hidden;background:linear-gradient(160deg,#6B5449,#2F2522)}
 .viz-label{position:absolute;left:14px;bottom:12px;font-size:10px;letter-spacing:.1em;color:rgba(230,221,213,.7)}
@@ -590,12 +632,33 @@ body.bm-lock{overflow:hidden}
     <article class="card">
       <h3>Visual identity &amp; branding</h3>
       <p>Logo, colors, typography and guidelines that make your business recognizable everywhere it shows up.</p>
-      <div class="viz">
-        <div class="vb-ring"><i></i><i></i><i></i></div>
-        <div class="vb-mark">BR</div>
-        <div class="vb-sw"><i></i><i></i><i></i><i></i></div>
-        <span class="viz-label">Brand Rituals</span>
-      </div>
+      <div class="viz zviz"><svg class="zsv" viewBox="0 0 400 380" data-scene="11" role="img" aria-label="A logo being built, then typography, guidelines and colours">
+<defs><pattern id="zd1" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#fff" opacity=".16"/></pattern></defs>
+<rect width="400" height="380" fill="url(#zd1)"/>
+<g fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1">
+ <path class="zl" data-t=".2" pathLength="1" d="M130,120a70,70 0 1,0 140,0a70,70 0 1,0 -140,0"/>
+ <path class="zl" data-t=".5" pathLength="1" d="M100,120H300"/>
+ <path class="zl" data-t=".7" pathLength="1" d="M200,36V204"/>
+ <path class="zl" data-t=".9" pathLength="1" d="M148,68H252V172H148Z"/>
+</g>
+<g class="zf" data-t="2.8" style="transform-box:view-box;transform-origin:200px 120px"><g class="zspin" style="transform-box:view-box;transform-origin:200px 120px">
+ <circle cx="200" cy="120" r="92" fill="none" stroke="#fff" stroke-opacity=".3" stroke-dasharray="3 5"/>
+ <circle cx="200" cy="28" r="7" fill="#FF5A36"/><circle cx="120" cy="166" r="6" fill="#CDB9A3"/><circle cx="280" cy="166" r="5" fill="#DDD4CE"/>
+</g></g>
+<rect class="zs" data-t="1.5" x="148" y="68" width="104" height="104" rx="28" fill="#F3EEE9"/>
+<text class="zs ser" data-t="2" x="200" y="139" text-anchor="middle" font-size="56" fill="#161412" style="font-family:var(--font-serif)">BR</text>
+<circle class="zs" data-t="2.4" cx="238" cy="86" r="7" fill="#FF5A36"/>
+<rect class="z" data-t="3.4" x="24" y="212" width="170" height="108" rx="16" fill="#F6F2EE"/>
+<text class="zf" data-t="3.7" x="40" y="236" font-size="9" letter-spacing="1.2" fill="#8a7d74">TYPOGRAPHY</text>
+<text class="zs" data-t="3.9" x="40" y="286" font-size="52" fill="#161412" style="font-family:var(--font-serif)">Aa</text>
+<text class="zs" data-t="4.2" x="108" y="286" font-size="40" fill="#FF5A36" font-weight="300">Aa</text>
+<text class="zf" data-t="4.4" x="40" y="308" font-size="9" fill="#8a7d74">Serif + sans pairing</text>
+<rect class="z" data-t="4" x="206" y="212" width="170" height="108" rx="16" fill="#F6F2EE"/>
+<text class="zf" data-t="4.3" x="222" y="236" font-size="9" letter-spacing="1.2" fill="#8a7d74">GUIDELINES</text>
+<g><circle class="zs" data-t="4.7" cx="230" cy="258" r="7" fill="#FF5A36"/><path class="zl" data-t="4.9" pathLength="1" d="M226.5,258l2.6,2.6l4.6,-5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect class="z" data-t="4.8" x="244" y="254" width="104" height="8" rx="4" fill="#DAD2CB"/></g><g><circle class="zs" data-t="5.2" cx="230" cy="280" r="7" fill="#FF5A36"/><path class="zl" data-t="5.4" pathLength="1" d="M226.5,280l2.6,2.6l4.6,-5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect class="z" data-t="5.3" x="244" y="276" width="84" height="8" rx="4" fill="#DAD2CB"/></g><g><circle class="zs" data-t="5.7" cx="230" cy="302" r="7" fill="#FF5A36"/><path class="zl" data-t="5.9" pathLength="1" d="M226.5,302l2.6,2.6l4.6,-5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect class="z" data-t="5.8" x="244" y="298" width="96" height="8" rx="4" fill="#DAD2CB"/></g>
+<circle class="zs" data-t="6.6" cx="150" cy="348" r="11" fill="#DDD4CE"/><circle class="zs" data-t="6.85" cx="175" cy="348" r="11" fill="#CDB9A3"/><circle class="zs" data-t="7.1" cx="200" cy="348" r="11" fill="#5F4A40"/><circle class="zs" data-t="7.35" cx="225" cy="348" r="11" fill="#FF5A36"/><circle class="zs" data-t="7.6" cx="250" cy="348" r="11" fill="#F6F2EE"/>
+<g><rect class="z" data-t="8.2" x="272" y="18" width="108" height="28" rx="14" fill="#FF5A36"/><text class="zf" data-t="8.5" x="326" y="36" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Brand kit ready</text></g>
+</svg><span class="viz-label">Brand Rituals</span></div>
       <a class="go" href="#growth" aria-label="See how we grow your brand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F3EEE9" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
 
@@ -603,16 +666,31 @@ body.bm-lock{overflow:hidden}
     <article class="card">
       <h3>Websites that work for you</h3>
       <p>Fast, mobile-first sites designed around what your customers need to do, from booking to buying to getting in touch.</p>
-      <div class="viz viz-web">
-        <div class="vw-win">
-          <div class="vw-bar"><i></i><i></i><i></i></div>
-          <div class="vw-hero sh"></div>
-          <div class="vw-row"><b class="sh"></b><b class="sh"></b><b class="sh"></b></div>
-          <div class="vw-btn">Book now</div>
-        </div>
-        <svg class="vw-cursor" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3l7 17 2.500-7L21 10.500z" fill="#fff" stroke="#161412" stroke-width="1.400" stroke-linejoin="round"/></svg>
-        <span class="viz-label">Website</span>
-      </div>
+      <div class="viz zviz"><svg class="zsv" viewBox="0 0 400 380" data-scene="13" role="img" aria-label="A website wireframe being built, painted and receiving a booking">
+<defs><linearGradient id="zg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF5A36"/><stop offset="1" stop-color="#E8A58F"/></linearGradient></defs>
+<rect x="24" y="24" width="352" height="292" rx="14" fill="#F6F2EE"/>
+<g fill="#CFC6BE"><circle cx="42" cy="38" r="3.5"/><circle cx="54" cy="38" r="3.5"/><circle cx="66" cy="38" r="3.5"/></g>
+<rect class="z" data-t=".3" x="110" y="31" width="180" height="14" rx="7" fill="#E8E1DB"/><text class="zf" data-t=".6" x="200" y="41.5" text-anchor="middle" font-size="8" fill="#8a7d74">yourbrand.com</text>
+<circle class="zs" data-t=".9" cx="50" cy="72" r="8" fill="#FF5A36"/>
+<rect class="z" data-t="1.0" x="262" y="68" width="24" height="8" rx="4" fill="#CFC6BE"/><rect class="z" data-t="1.15" x="292" y="68" width="24" height="8" rx="4" fill="#CFC6BE"/><rect class="z" data-t="1.3" x="322" y="68" width="24" height="8" rx="4" fill="#CFC6BE"/>
+<rect class="z" data-t="1.4" x="44" y="92" width="312" height="104" rx="10" fill="#E4DDD6"/>
+<rect class="zf" data-t="3.6" x="44" y="92" width="312" height="104" rx="10" fill="url(#zg2)"/>
+<rect class="z" data-t="1.8" data-off="3.8" x="62" y="114" width="150" height="12" rx="6" fill="#CFC6BE"/>
+<rect class="z" data-t="2" data-off="3.8" x="62" y="134" width="112" height="12" rx="6" fill="#CFC6BE"/>
+<rect class="z" data-t="2.2" data-off="3.8" x="62" y="160" width="80" height="8" rx="4" fill="#CFC6BE"/>
+<text class="zup" data-t="4" x="62" y="130" font-size="24" fill="#fff" style="font-family:var(--font-serif)">Your brand,</text>
+<text class="zup" data-t="4.25" x="62" y="156" font-size="24" fill="#161412" style="font-family:var(--font-serif)">online.</text>
+<circle class="zs" data-t="4.5" cx="318" cy="144" r="26" fill="#fff" fill-opacity=".22"/><circle class="zs" data-t="4.7" cx="318" cy="144" r="13" fill="#fff" fill-opacity=".5"/>
+<g><rect class="z" data-t="2.5" x="44" y="208" width="96" height="60" rx="10" fill="#E4DDD6"/><rect class="zf" data-t="4.6" x="44" y="208" width="96" height="60" rx="10" fill="#CDB9A3"/><rect class="zf" data-t="5.0" x="56" y="250" width="50" height="6" rx="3" fill="#fff" fill-opacity=".75"/></g><g><rect class="z" data-t="2.7" x="152" y="208" width="96" height="60" rx="10" fill="#E4DDD6"/><rect class="zf" data-t="4.85" x="152" y="208" width="96" height="60" rx="10" fill="#5F4A40"/><rect class="zf" data-t="5.25" x="164" y="250" width="40" height="6" rx="3" fill="#fff" fill-opacity=".75"/></g><g><rect class="z" data-t="2.9" x="260" y="208" width="96" height="60" rx="10" fill="#E4DDD6"/><rect class="zf" data-t="5.1" x="260" y="208" width="96" height="60" rx="10" fill="#DDD4CE"/><rect class="zf" data-t="5.5" x="272" y="250" width="56" height="6" rx="3" fill="#fff" fill-opacity=".75"/></g>
+<rect class="zs" data-t="5.6" x="44" y="280" width="96" height="28" rx="14" fill="#161412"/>
+<rect class="zf" data-t="7.3" x="44" y="280" width="96" height="28" rx="14" fill="#FF5A36"/>
+<text class="zf" data-t="5.8" x="92" y="298" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Book now</text>
+<g class="zf" data-t="6" ><g class="zf2"><rect x="298" y="206" width="76" height="134" rx="14" fill="#161412"/><rect x="303" y="212" width="66" height="122" rx="10" fill="#F6F2EE"/><rect x="309" y="220" width="54" height="40" rx="6" fill="#FF5A36"/><rect x="309" y="268" width="54" height="22" rx="5" fill="#CDB9A3"/><rect x="309" y="296" width="30" height="8" rx="4" fill="#CFC6BE"/><rect x="309" y="312" width="38" height="14" rx="7" fill="#161412"/></g></g>
+<circle class="zripple" data-t="7.3" cx="92" cy="294" r="8" fill="none" stroke="#FF5A36" stroke-width="2"/>
+<g><rect class="zup" data-t="7.8" x="24" y="330" width="178" height="38" rx="19" fill="#161412"/><circle class="zs" data-t="8.1" cx="46" cy="349" r="9" fill="#FF5A36"/><path class="zl" data-t="8.2" pathLength="1" d="M41.5,349l3.2,3.2l5.6,-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text class="zf" data-t="8.3" x="62" y="353" font-size="11" font-weight="600" fill="#fff">Booking confirmed</text></g>
+<g><rect class="zup" data-t="9.4" x="300" y="342" width="84" height="26" rx="13" fill="#F6F2EE"/><text class="zf" data-t="9.6" x="342" y="359" text-anchor="middle" font-size="10" font-weight="600" fill="#161412">0.8s load</text></g>
+<g class="cur" data-path="0:340,60;2.2:230,170;4.4:260,238;6.4:110,300;12:110,300" style="transform:translate(340px,60px)"><path d="M0 0l7 17 2.5-7L21 7.5z" fill="#fff" stroke="#161412" stroke-width="1.4" stroke-linejoin="round" transform="translate(-4 -3)"/></g>
+</svg><span class="viz-label">Website</span></div>
       <a class="go" href="#growth" aria-label="See how we grow your brand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F3EEE9" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
 
@@ -620,13 +698,36 @@ body.bm-lock{overflow:hidden}
     <article class="card">
       <h3>Social media management</h3>
       <p>Content planning, posting and community care across your channels, with a consistent look and a regular rhythm.</p>
-            <div class="viz viz-social">
-        <div class="vs-post p1"><div class="im" role="img" aria-label="Floating likes, followers and views" style="background:url(images/find-idean.jpg) center/cover"></div><div class="ln"></div><div class="ln s"></div></div>
-        <div class="vs-post p2"><div class="im" role="img" aria-label="Content strategy flow" style="background:url(images/cook.jpg) center/cover"></div><div class="ln"></div><div class="ln s"></div></div>
-        <div class="vs-post p3"><div class="im" role="img" aria-label="Analytics dashboard" style="background:url(images/creative-strategy.jpg) center/cover"></div><div class="ln"></div><div class="ln s"></div></div>
-        <div class="vs-like"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 21s-7.500-4.600-9.600-9.200C.8 8.200 3 4.500 6.600 4.500c2 0 3.700 1 5.400 3 1.700-2 3.400-3 5.400-3 3.600 0 5.800 3.700 4.200 7.300C19.500 16.400 12 21 12 21z"/></svg>+2M views</div>
-        <span class="viz-label">Illustrative</span>
-      </div>
+            <div class="viz zviz"><svg class="zsv" viewBox="0 0 400 380" data-scene="14" role="img" aria-label="A social media feed filling with posts, likes, followers and views">
+<defs><linearGradient id="zp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2B7A3"/><stop offset="1" stop-color="#D98A72"/></linearGradient>
+<linearGradient id="zp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9A786A"/><stop offset="1" stop-color="#2E211D"/></linearGradient>
+<linearGradient id="zg3b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5A36" stop-opacity=".5"/><stop offset="1" stop-color="#FF5A36" stop-opacity="0"/></linearGradient></defs>
+<circle class="zs" data-t=".1" cx="34" cy="32" r="12" fill="#CDB9A3"/><circle class="zs zring" data-t=".1" cx="34" cy="32" r="15.5" fill="none" stroke="#FF5A36" stroke-width="2"/>
+<text class="zf" data-t=".3" x="56" y="30" font-size="12" font-weight="700" fill="#fff">yourbrand</text><text class="zf" data-t=".45" x="56" y="43" font-size="8.5" fill="#CDB9A3">Posting 5x a week</text>
+<g class="zs" data-t=".5"><rect x="176" y="22" width="66" height="20" rx="10" fill="#FF5A36"/><text x="209" y="35.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">+ Follow</text></g>
+<clipPath id="zt0"><rect x="20" y="58" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="0.6"><g clip-path="url(#zt0)"><rect x="20" y="58" width="70" height="70" fill="url(#zp1)"/><circle cx="70" cy="78" r="14" fill="#F6F2EE" fill-opacity=".7"/><ellipse cx="53" cy="118" rx="18" ry="4" fill="#000" fill-opacity=".15"/><rect x="45" y="80" width="17" height="38" rx="6" fill="#F6F2EE"/><rect x="49" y="71" width="9" height="10" rx="3" fill="#161412"/><rect x="45" y="94" width="17" height="11" fill="#FF5A36"/><text x="53.5" y="102" text-anchor="middle" font-size="6" font-weight="700" fill="#fff">NEW</text></g></g>
+<clipPath id="zt1"><rect x="96" y="58" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="1.02"><g clip-path="url(#zt1)"><rect x="96" y="58" width="70" height="70" fill="#161412"/><text x="104" y="88" font-size="17" fill="#F6F2EE" style="font-family:var(--font-serif)">Brand it.</text><text x="104" y="106" font-size="17" fill="#FF5A36" style="font-family:var(--font-serif)" font-style="italic">Own it.</text><rect x="104" y="116" width="26" height="3" rx="1.5" fill="#FF5A36"/></g></g>
+<clipPath id="zt2"><rect x="172" y="58" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="1.44"><g clip-path="url(#zt2)"><rect x="172" y="58" width="70" height="70" fill="#FF5A36"/><circle cx="232" cy="66" r="22" fill="#fff" fill-opacity=".14"/><text x="180" y="100" font-size="25" fill="#fff" style="font-family:var(--font-serif)">-30%</text><text x="181" y="115" font-size="8" font-weight="600" letter-spacing=".8" fill="#fff">THIS WEEK</text></g></g>
+<clipPath id="zt3"><rect x="20" y="134" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="1.86"><g clip-path="url(#zt3)"><rect x="20" y="134" width="70" height="70" fill="#CDB9A3"/><rect x="42" y="146" width="38" height="40" rx="7" fill="#F6F2EE" fill-opacity=".55"/><rect x="34" y="144" width="40" height="44" rx="7" fill="#F6F2EE"/><rect x="40" y="150" width="28" height="18" rx="4" fill="#FF5A36"/><rect x="40" y="173" width="22" height="4" rx="2" fill="#CFC6BE"/><circle cx="47" cy="196" r="2.4" fill="#161412"/><circle cx="55" cy="196" r="2.4" fill="#161412" fill-opacity=".35"/><circle cx="63" cy="196" r="2.4" fill="#161412" fill-opacity=".35"/></g></g>
+<clipPath id="zt4"><rect x="96" y="134" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="2.28"><g clip-path="url(#zt4)"><rect x="96" y="134" width="70" height="70" fill="url(#zp2)"/><circle cx="131" cy="167" r="14" fill="#fff" fill-opacity=".92"/><path d="M126.5,159l14,8l-14,8z" fill="#161412"/><rect x="104" y="142" width="26" height="12" rx="6" fill="#161412" fill-opacity=".55"/><text x="117" y="151" text-anchor="middle" font-size="7" font-weight="700" fill="#fff">REEL</text><rect x="104" y="194" width="54" height="3" rx="1.5" fill="#fff" fill-opacity=".3"/><rect class="pgr" data-t="4.6" x="104" y="194" width="54" height="3" rx="1.5" fill="#fff"/></g></g>
+<clipPath id="zt5"><rect x="172" y="134" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="2.7"><g clip-path="url(#zt5)"><rect x="172" y="134" width="70" height="70" fill="#F6F2EE"/><text x="181" y="156" font-size="10" letter-spacing="1" fill="#FF5A36">★★★★★</text><rect x="181" y="164" width="52" height="5" rx="2.5" fill="#CFC6BE"/><rect x="181" y="174" width="42" height="5" rx="2.5" fill="#CFC6BE"/><circle cx="188" cy="192" r="6" fill="#CDB9A3"/><rect x="198" y="189" width="26" height="5" rx="2.5" fill="#DAD2CB"/></g></g>
+<clipPath id="zt6"><rect x="20" y="210" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="3.12"><g clip-path="url(#zt6)"><rect x="20" y="210" width="70" height="70" fill="#5F4A40"/><rect x="32" y="232" width="46" height="30" rx="7" fill="#F6F2EE"/><rect x="40" y="227" width="14" height="7" rx="2" fill="#F6F2EE"/><circle cx="55" cy="247" r="11" fill="#161412"/><circle cx="55" cy="247" r="5" fill="#FF5A36"/><circle cx="51.5" cy="243.5" r="2" fill="#fff" fill-opacity=".8"/><rect x="68" y="236" width="6" height="4" rx="2" fill="#FF5A36"/><text x="55" y="274" text-anchor="middle" font-size="7" font-weight="600" letter-spacing=".8" fill="#E8DED6">ON SET</text></g></g>
+<clipPath id="zt7"><rect x="96" y="210" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="3.54"><g clip-path="url(#zt7)"><rect x="96" y="210" width="70" height="70" fill="#DAD2CB"/><rect x="131" y="210" width="35" height="70" fill="#FF5A36"/><rect x="106" y="232" width="16" height="26" rx="5" fill="#B7ABA1"/><rect x="140" y="226" width="18" height="32" rx="6" fill="#F6F2EE"/><rect x="130" y="210" width="2" height="70" fill="#fff"/><circle cx="131" cy="245" r="6" fill="#fff"/><text x="114" y="272" text-anchor="middle" font-size="6.5" font-weight="700" fill="#5F4A40">BEFORE</text><text x="149" y="272" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">AFTER</text></g></g>
+<clipPath id="zt8"><rect x="172" y="210" width="70" height="70" rx="11"/></clipPath><g class="z" data-t="3.96"><g clip-path="url(#zt8)"><rect x="172" y="210" width="70" height="70" fill="#2A2523"/><text x="181" y="227" font-size="7" letter-spacing=".8" fill="#CDB9A3">REACH</text><rect x="182" y="256" width="8" height="12" rx="2" fill="#CDB9A3"/><rect x="193" y="250" width="8" height="18" rx="2" fill="#CDB9A3"/><rect x="204" y="246" width="8" height="22" rx="2" fill="#CDB9A3"/><rect x="215" y="238" width="8" height="30" rx="2" fill="#FF5A36"/><rect x="226" y="230" width="8" height="38" rx="2" fill="#FF5A36"/><path d="M184,250L206,238L232,224" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="3 3"/></g></g>
+<g transform="translate(101 139) scale(2.5)"><path class="zheart" data-t="4.2" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g transform="translate(124 170) scale(0.8)"><path class="zfl" data-t="4.8" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g transform="translate(150 176) scale(0.6)"><path class="zfl" data-t="5.1" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g transform="translate(52 100) scale(0.8)"><path class="zfl" data-t="5.6" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g transform="translate(210 120) scale(0.7)"><path class="zfl" data-t="6.3" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g transform="translate(60 240) scale(0.6)"><path class="zfl" data-t="6.9" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g transform="translate(200 248) scale(0.7)"><path class="zfl" data-t="7.6" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g><g class="zs" data-t="5.2"><rect x="100" y="138" width="36" height="14" rx="7" fill="#161412" fill-opacity=".78"/><text x="118" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">♥ 2.4K</text></g><g class="zs" data-t="6.6"><rect x="176" y="62" width="36" height="14" rx="7" fill="#161412" fill-opacity=".78"/><text x="194" y="72" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">♥ 890</text></g><g class="zs" data-t="8.0"><rect x="24" y="214" width="36" height="14" rx="7" fill="#161412" fill-opacity=".78"/><text x="42" y="224" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">♥ 1.1K</text></g>
+<rect x="254" y="18" width="132" height="72" rx="14" fill="#fff" fill-opacity=".09" stroke="#fff" stroke-opacity=".14"/>
+<text x="268" y="40" font-size="9" fill="#CDB9A3" letter-spacing=".8">FOLLOWERS</text>
+<text class="cnt" data-t="1.2" data-from="12400" data-to="48900" data-dur="8" data-fmt="K" x="268" y="74" font-size="28" font-weight="600" fill="#fff">12.4K</text>
+<g><rect class="zs" data-t="2" x="330" y="26" width="48" height="18" rx="9" fill="#FF5A36"/><text class="zf" data-t="2.2" x="354" y="38.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">+294%</text></g>
+<rect x="254" y="98" width="132" height="98" rx="14" fill="#fff" fill-opacity=".09" stroke="#fff" stroke-opacity=".14"/>
+<text x="268" y="118" font-size="9" fill="#CDB9A3" letter-spacing=".8">VIEWS</text>
+<text class="cnt" data-t="2" data-from="2100000" data-to="9600000" data-dur="8" data-fmt="M" x="372" y="119" font-size="12" font-weight="700" fill="#fff" text-anchor="end">2.1M</text>
+<path class="zf" data-t="3" d="M266,188C278,186 284,176 296,178C308,180 314,164 326,158C338,152 346,146 356,136C364,130 370,126 374,122V190H266Z" fill="url(#zg3b)"/>
+<path class="zl" data-t="2.4" pathLength="1" d="M266,188C278,186 284,176 296,178C308,180 314,164 326,158C338,152 346,146 356,136C364,130 370,126 374,122" fill="none" stroke="#FF5A36" stroke-width="2.5" stroke-linecap="round" style="transition-duration:2.4s"/>
+<circle class="zs zpulse" data-t="4.8" cx="374" cy="122" r="4.5" fill="#fff" stroke="#FF5A36" stroke-width="2"/>
+<g><rect class="zup" data-t="4.5" x="254" y="204" width="132" height="24" rx="12" fill="#F6F2EE"/><circle class="zs" data-t="4.7" cx="268" cy="216" r="6.5" fill="#FF5A36"/><text class="zf" data-t="4.8" x="281" y="219.5" font-size="9" font-weight="500" fill="#161412">maya_k liked your reel</text></g><g><rect class="zup" data-t="6.3" x="254" y="232" width="132" height="24" rx="12" fill="#F6F2EE"/><circle class="zs" data-t="6.5" cx="268" cy="244" r="6.5" fill="#CDB9A3"/><text class="zf" data-t="6.6" x="281" y="247.5" font-size="9" font-weight="500" fill="#161412">+312 new followers</text></g><g><rect class="zup" data-t="8.1" x="254" y="260" width="132" height="24" rx="12" fill="#F6F2EE"/><circle class="zs" data-t="8.299999999999999" cx="268" cy="272" r="6.5" fill="#5F4A40"/><text class="zf" data-t="8.4" x="281" y="275.5" font-size="9" font-weight="500" fill="#161412">Reel hit 1M views</text></g>
+<text class="zf" data-t="8.6" x="20" y="302" font-size="9" fill="#CDB9A3" letter-spacing=".8">CONTENT CALENDAR · SCHEDULED</text><g><rect x="20.0" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="8.9"><rect x="20.0" y="308" width="46" height="52" rx="12" fill="#FF5A36"/><path d="M37.0,322l12,7l-12,7z" fill="#fff"/></g><text class="zf" data-t="9.0" x="43.0" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">M</text></g><g><rect x="72.3" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="9.2"><rect x="72.3" y="308" width="46" height="52" rx="12" fill="#FF5A36"/><rect x="86.3" y="322" width="18" height="14" rx="3" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="95.3" cy="329" r="3.2" fill="#fff"/></g><text class="zf" data-t="9.299999999999999" x="95.3" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T</text></g><g><rect x="124.6" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="9.5"><rect x="124.6" y="308" width="46" height="52" rx="12" fill="#8a6a5c"/><circle cx="147.6" cy="329" r="8" fill="none" stroke="#fff" stroke-width="1.8" stroke-dasharray="4 2.4"/></g><text class="zf" data-t="9.6" x="147.6" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">W</text></g><g><rect x="176.89999999999998" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="9.8"><rect x="176.89999999999998" y="308" width="46" height="52" rx="12" fill="#FF5A36"/><path d="M193.89999999999998,322l12,7l-12,7z" fill="#fff"/></g><text class="zf" data-t="9.9" x="199.89999999999998" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T</text></g><g><rect x="229.2" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="10.1"><rect x="229.2" y="308" width="46" height="52" rx="12" fill="#FF5A36"/><rect x="243.2" y="322" width="18" height="14" rx="3" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="252.2" cy="329" r="3.2" fill="#fff"/></g><text class="zf" data-t="10.2" x="252.2" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">F</text></g><g><rect x="281.5" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="10.4"><rect x="281.5" y="308" width="46" height="52" rx="12" fill="#FF5A36"/><path d="M298.5,322l12,7l-12,7z" fill="#fff"/></g><text class="zf" data-t="10.5" x="304.5" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">S</text></g><g><rect x="333.79999999999995" y="308" width="46" height="52" rx="12" fill="#fff" fill-opacity=".09"/><g class="zs" data-t="10.7"><rect x="333.79999999999995" y="308" width="46" height="52" rx="12" fill="#8a6a5c"/><circle cx="356.79999999999995" cy="329" r="8" fill="none" stroke="#fff" stroke-width="1.8" stroke-dasharray="4 2.4"/></g><text class="zf" data-t="10.799999999999999" x="356.79999999999995" y="353" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">S</text></g>
+</svg><span class="viz-label">Social media</span></div>
       <a class="go" href="#growth" aria-label="See how we grow your brand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F3EEE9" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
 
@@ -634,17 +735,34 @@ body.bm-lock{overflow:hidden}
     <article class="card">
       <h3>UGC video creation</h3>
       <p>Short, authentic videos made for Reels, TikTok and paid ads, shot to feel like real people talking about real products.</p>
-      <div class="viz viz-ugc">
-        <div class="vu-phone">
-          <div class="vu-screen">
-            <video data-vid src="videos/skincare-ugc.mp4" muted loop playsinline preload="metadata"
-                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video> 
-            <div class="vu-play"></div><div class="vu-prog"><b></b></div></div></div>
-        <div class="vu-chip c1">Where can I buy this?</div>
-        <div class="vu-chip c2">Just ordered mine</div>
-        <div class="vu-chip c3">Obsessed with this</div>
-        <span class="viz-label">SKINCARE UGC</span>
-      </div>
+      <div class="viz zviz"><svg class="zsv" viewBox="0 0 400 380" data-scene="12" role="img" aria-label="A UGC video being filmed and edited, with comments appearing">
+<defs><linearGradient id="zg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9A786A"/><stop offset="1" stop-color="#3A2B26"/></linearGradient><clipPath id="zc4"><rect x="135" y="25" width="130" height="248" rx="18"/></clipPath></defs>
+<rect x="128" y="18" width="144" height="262" rx="26" fill="#141211"/>
+<g clip-path="url(#zc4)">
+<rect x="135" y="25" width="130" height="248" fill="url(#zg4)"/>
+<g class="znod" style="transform-box:view-box;transform-origin:200px 240px">
+ <ellipse cx="200" cy="262" rx="62" ry="50" fill="#FF5A36"/>
+ <rect x="190" y="150" width="20" height="26" rx="8" fill="#D99C74"/>
+ <circle cx="200" cy="128" r="30" fill="#E2AD83"/>
+ <path d="M168,124c0,-24 16,-34 32,-34s32,10 32,34c-8,-14 -20,-20 -32,-20s-24,6 -32,20z" fill="#2A1B14"/>
+ <circle cx="189" cy="130" r="3" fill="#2A1B14"/><circle cx="211" cy="130" r="3" fill="#2A1B14"/>
+ <ellipse class="ztalk" cx="200" cy="145" rx="7" ry="4" fill="#8A3A2A" style="transform-box:fill-box;transform-origin:center"/>
+</g>
+<g class="zrock" style="transform-box:view-box;transform-origin:236px 214px"><rect x="222" y="152" width="28" height="64" rx="9" fill="#F6F2EE"/><rect x="229" y="143" width="14" height="12" rx="3" fill="#161412"/><rect x="222" y="172" width="28" height="22" fill="#FF5A36"/><text x="236" y="187" text-anchor="middle" font-size="7" font-weight="700" fill="#fff">GLOW</text><ellipse cx="216" cy="214" rx="9" ry="7" fill="#E2AD83"/></g>
+<circle class="zblink" cx="148" cy="42" r="4" fill="#FF3B30"/>
+<text class="cnt" data-t=".1" data-from="0" data-to="12" data-dur="11" data-fmt="time" x="158" y="46" font-size="11" font-weight="700" fill="#fff">0:00</text>
+<g><rect class="zf" data-t="1.4" data-off="3.8" x="146" y="222" width="108" height="26" rx="9" fill="#000" fill-opacity=".6"/><text class="zf" data-t="1.6" data-off="3.8" x="200" y="239" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">okay wait...</text>
+<rect class="zf" data-t="4" data-off="7.4" x="140" y="222" width="120" height="26" rx="9" fill="#000" fill-opacity=".6"/><text class="zf" data-t="4.2" data-off="7.4" x="200" y="239" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">this changed my skin</text>
+<rect class="zf" data-t="7.6" x="150" y="222" width="100" height="26" rx="9" fill="#FF5A36"/><text class="zf" data-t="7.8" x="200" y="239" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">link in bio</text></g>
+<rect x="143" y="262" width="114" height="3" rx="1.5" fill="#fff" fill-opacity=".3"/><rect class="pgr" data-t=".1" style="transition-duration:11s" x="143" y="262" width="114" height="3" rx="1.5" fill="#FF5A36"/>
+</g>
+<g><circle class="zs" data-t="3" cx="283" cy="98" r="11" fill="#F6F2EE"/><g transform="translate(277 92) scale(.5)"><path d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.7 1 5.4 3 1.7-2 3.4-3 5.4-3 3.6 0 5.8 3.7 4.2 7.3C19.5 16.4 12 21 12 21z" fill="#FF5A36"/></g></g><g><circle class="zs" data-t="3.3" cx="283" cy="132" r="11" fill="#F6F2EE"/><g transform="translate(277 126) scale(.5)"><path d="M3,4h18v12H9l-5,5V16H3z" fill="#161412"/></g></g><g><circle class="zs" data-t="3.6" cx="283" cy="166" r="11" fill="#F6F2EE"/><g transform="translate(277 160) scale(.5)"><path d="M3,12l18,-9l-5,18l-4,-7z" fill="#161412"/></g></g>
+<g transform="translate(283 110)"><text class="zf" data-t="3.2" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">12.4K</text></g>
+<g><rect class="zs zfloat" data-t="3.5" x="10" y="70" width="112" height="26" rx="13" fill="#F6F2EE" style="animation-delay:0s"/><text class="zf" data-t="3.7" x="66.0" y="87" text-anchor="middle" font-size="10" font-weight="500" fill="#161412">Where can I buy this?</text></g><g><rect class="zs zfloat" data-t="5.5" x="290" y="190" width="100" height="26" rx="13" fill="#F6F2EE" style="animation-delay:-1.5s"/><text class="zf" data-t="5.7" x="340.0" y="207" text-anchor="middle" font-size="10" font-weight="500" fill="#161412">Just ordered mine</text></g><g><rect class="zs zfloat" data-t="7.3" x="14" y="160" width="106" height="26" rx="13" fill="#F6F2EE" style="animation-delay:-3s"/><text class="zf" data-t="7.5" x="67.0" y="177" text-anchor="middle" font-size="10" font-weight="500" fill="#161412">Obsessed with this</text></g><g><rect class="zs zfloat" data-t="9" x="296" y="92" width="84" height="26" rx="13" fill="#F6F2EE" style="animation-delay:-4.5s"/><text class="zf" data-t="9.2" x="338.0" y="109" text-anchor="middle" font-size="10" font-weight="500" fill="#161412">Reviews?</text></g><g><rect class="zs zfloat" data-t="9.8" x="10" y="240" width="96" height="26" rx="13" fill="#F6F2EE" style="animation-delay:-2s"/><text class="zf" data-t="10.0" x="58.0" y="257" text-anchor="middle" font-size="10" font-weight="500" fill="#161412">Need this!!</text></g>
+<text class="zf" data-t=".6" x="20" y="312" font-size="9" fill="#CDB9A3" letter-spacing=".8">EDIT TIMELINE</text>
+<g><rect class="zup" data-t="1.0" x="20" y="320" width="56" height="32" rx="8" fill="#FF5A36"/><text class="zf" data-t="1.3" x="48.0" y="340" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Hook</text></g><g><rect class="zup" data-t="1.7" x="80" y="320" width="70" height="32" rx="8" fill="#5F4A40"/><text class="zf" data-t="2.0" x="115.0" y="340" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">Problem</text></g><g><rect class="zup" data-t="2.4" x="154" y="320" width="124" height="32" rx="8" fill="#CDB9A3"/><text class="zf" data-t="2.7" x="216.0" y="340" text-anchor="middle" font-size="10" font-weight="600" fill="#161412">Demo</text></g><g><rect class="zup" data-t="3.0999999999999996" x="282" y="320" width="78" height="32" rx="8" fill="#FF5A36"/><text class="zf" data-t="3.3999999999999995" x="321.0" y="340" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">CTA</text></g>
+<g class="ph" data-path="0:0,0;.5:340,0" style="transform:translate(0px,0px)"><rect x="20" y="314" width="2" height="44" fill="#fff"/><circle cx="21" cy="314" r="4" fill="#fff"/></g>
+</svg><span class="viz-label">UGC video</span></div>
       <a class="go" href="#growth" aria-label="See how we grow your brand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F3EEE9" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
 
@@ -1523,6 +1641,54 @@ try{document.getElementById('annMonth').textContent=new Date().toLocaleString('e
   requestAnimationFrame(frame);
 })();
 
+</script>
+<script>
+/* Timeline player for the animated service cards: reveals each [data-t] item at its second, then loops */
+(function(){
+  var svgs=[].slice.call(document.querySelectorAll('svg[data-scene]')); if(!svgs.length) return;
+  function clamp(v){return v<0?0:v>1?1:v;}
+  function fmt(el,v){var f=el.getAttribute('data-fmt');
+    if(f==='K')return (v/1000).toFixed(1)+'K';
+    if(f==='M')return (v/1e6).toFixed(1)+'M';
+    if(f==='likes')return Math.round(v).toLocaleString('en-US')+' likes';
+    if(f==='time'){var s=Math.floor(v);return '0:'+(s<10?'0':'')+s;}
+    return Math.round(v);}
+  svgs.forEach(function(svg){
+    var T=parseFloat(svg.getAttribute('data-scene'))||10, t=0, last=null, vis=false;
+    var els=[].slice.call(svg.querySelectorAll('[data-t]'));
+    var paths=[].slice.call(svg.querySelectorAll('[data-path]')).map(function(el){
+      return {el:el,i:0,steps:el.getAttribute('data-path').split(';').map(function(s){var a=s.split(':'),b=a[1].split(',');return {t:+a[0],x:+b[0],y:+b[1]};})};});
+    var cnts=[].slice.call(svg.querySelectorAll('.cnt'));
+    function put(p,s){p.el.style.transform='translate('+s.x+'px,'+s.y+'px)';}
+    function reset(){
+      els.forEach(function(e){e.classList.remove('on');});
+      paths.forEach(function(p){p.el.style.transition='none';p.i=0;put(p,p.steps[0]);});
+      void svg.getBoundingClientRect();
+      paths.forEach(function(p){p.el.style.transition='';});
+      cnts.forEach(function(c){c.textContent=fmt(c,+c.getAttribute('data-from'));});
+    }
+    reset();
+    if('IntersectionObserver' in window) new IntersectionObserver(function(e){vis=e[0].isIntersecting;last=null;},{threshold:.15}).observe(svg); else vis=true;
+    function tick(now){
+      requestAnimationFrame(tick);
+      if(!vis){return;}
+      if(last===null)last=now;
+      t+=Math.min(.1,(now-last)/1000); last=now;
+      if(t>=T){t=0;reset();}
+      var out=t>T-.9;
+      els.forEach(function(e){
+        var a=+e.getAttribute('data-t'),o=e.getAttribute('data-off'),on=t>=a&&!out&&!(o&&t>=+o);
+        if(on!==e.classList.contains('on'))e.classList.toggle('on',on);
+      });
+      paths.forEach(function(p){while(p.i<p.steps.length&&t>=p.steps[p.i].t){put(p,p.steps[p.i]);p.i++;}});
+      cnts.forEach(function(c){
+        var s=+c.getAttribute('data-t'),d=+c.getAttribute('data-dur')||4,f=+c.getAttribute('data-from'),to=+c.getAttribute('data-to');
+        var k=clamp((t-s)/d);k=1-Math.pow(1-k,3);c.textContent=fmt(c,f+(to-f)*k);
+      });
+    }
+    requestAnimationFrame(tick);
+  });
+})();
 </script>
 </body>
 </html>
